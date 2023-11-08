@@ -12,6 +12,7 @@ import registerRouter from './routes/Register.js';
 import loginRouter from './routes/Login.js';
 
 const app = express();
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -231,6 +232,6 @@ app.post("/api/EventTracking", async (req, res) => {
 
 })
 
-app.listen(5000, () =>{
+app.listen(port, () =>{
     console.log("Server is listinig the port 5000")
 });
