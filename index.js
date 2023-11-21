@@ -10,6 +10,7 @@ import { jsonResponse } from './lib/jsonResponse.js';
 //routes
 import registerRouter from './routes/Register.js';
 import loginRouter from './routes/Login.js';
+import updatedUserRouter from './routes/updateUser.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -30,9 +31,31 @@ main().catch(console.error);
 
 app.use("/api/Register", registerRouter);
 app.use("/api/Login", loginRouter);
+app.use("/api/updateUser", updatedUserRouter);
 
 app.get("/", (req, res) => {
     res.send("conectado")
+})
+
+app.get("/api/getUser", (req, res) => {
+ 
+  const email = req.query.searchTerm;
+
+  User.findOne({ email: email })
+  .then(user => {
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      // El usuario no fue encontrado
+      console.log('Usuario no encontrado');
+      return res.status(404).json(jsonResponse(404, {
+        error:"No se encontró el usuario",
+        
+      })
+      );
+    }
+  })
+  
 })
 
 app.post("/api/loginAdmin", (req, res) => {
