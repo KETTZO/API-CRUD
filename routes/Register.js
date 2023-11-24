@@ -19,8 +19,8 @@ router.post("/", (req, res) => {
   }
 
     // Verificar si el email ya existe en la base de datos
-    const existingUser = User.findMany({ email });
-/*
+    /*const existingUser = User.findMany({ email });
+
     if (existingUser) {
       console.log("Email already exists: " + email);
       return res.status(409).json(
