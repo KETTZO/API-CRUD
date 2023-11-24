@@ -22,6 +22,7 @@ router.post("/", (req, res) => {
     const existingUser = User.findOne({ email });
 
     if (existingUser) {
+      console.log("Email already exists: " + email);
       return res.status(409).json(
         jsonResponse(409, {
           error: "Email already exists: " + email,
