@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
     if (existingUser) {
       return res.status(409).json(
         jsonResponse(409, {
-          error: "Email already exists",
+          error: "Email already exists: " + email,
         })
       );
     }
