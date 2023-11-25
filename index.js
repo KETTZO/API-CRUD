@@ -231,28 +231,25 @@ app.post("/api/EventTracking", async (req, res) => {
 
   const {email, event} = req.body;
 
-  User.findOneAndUpdate(
-    { email: email },
-    { $push: { eventosSeguidos: event } },
-    { new: true },
-  )
-    .then(updatedUser => {
-      if (updatedUser) {
-        // El usuario fue encontrado y el evento se agregó a eventosSeguidos
-        console.log('Usuario encontrado y evento agregado: ' + updatedUser);
-        res.status(200).json("Evento seguido");
-      } else {
-        // El usuario no fue encontrado
-        console.log('No se pudo agregar el evento');
-        console.log(email);
-        res.status(402).json({ message: 'No se encontró el usuario o el evento' });
-      }
-    })
-    .catch(error => {
-      // Manejo de errores
-      console.error('Error al agregar evento:', error);
-      res.status(500).json({ message: 'Error en la consulta.' });
-    });
+  try {
+    const updatedUser = await User.findOneAndUpdate(
+      { email: email },
+      { $push: { eventosSeguidos: event } },
+      { new: true }
+    );
+  
+    if (updatedUser) {
+      console.log('Usuario encontrado y evento agregado:', updatedUser);
+      res.status(200).json("Evento seguido");
+    } else {
+      console.log('No se pudo agregar el evento');
+      console.log(email);
+      res.status(402).json({ message: 'No se encontró el usuario o el evento' });
+    }
+  } catch (error) {
+    console.error('Error al agregar evento:', error);
+    res.status(500).json({ message: 'Error en la consulta.' });
+  }
 
 })
 
