@@ -233,7 +233,7 @@ app.post("/api/EventTracking", async (req, res) => {
 
   try {
     const updatedUser = await User.findOneAndUpdate(
-      { email: email },
+      { email: { $eq: email } },
       { $push: { eventosSeguidos: event } },
       { new: true }
     );
