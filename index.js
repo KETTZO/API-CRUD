@@ -243,7 +243,8 @@ app.post("/api/EventTracking", async (req, res) => {
         res.status(200).json("Evento seguido");
       } else {
         // El usuario no fue encontrado
-        console.log('Usuario no encontrado');
+        console.log('No se pudo agregar el evento');
+        console.log(email);
         res.status(402).json({ message: 'No se encontró el usuario o el evento' });
       }
     })
