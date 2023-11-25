@@ -232,10 +232,10 @@ app.post("/api/EventTracking", async (req, res) => {
   const {email, event} = req.body;
 
   try {
-    const updatedUser = await User.findOneAndUpdate(
+    const updatedUser = await User.findOne(
       { email },
-      { $push: { eventosSeguidos: event } },
-      { new: true }
+      /*{ $push: { eventosSeguidos: event } },
+      { new: true }*/
     );
     console.log('update: ' + updatedUser)
     if (updatedUser) {
