@@ -237,7 +237,7 @@ app.post("/api/EventTracking", async (req, res) => {
       { $push: { eventosSeguidos: event } },
       { new: true }
     );
-  
+    console.log('update: ' + updatedUser)
     if (updatedUser) {
       console.log('Usuario encontrado y evento agregado:', updatedUser);
       res.status(200).json("Evento seguido");
